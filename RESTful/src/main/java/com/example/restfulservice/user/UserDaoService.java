@@ -22,6 +22,8 @@ public class UserDaoService {
     public List<User> findAll() {
         return users;
     }
+
+
     // INSERT INTO (ID, NAME, JOIN_DATE) VALUES (id, name, join_date)
     public User save(User user) {
         if (user.getId() == null) {
@@ -58,4 +60,15 @@ public class UserDaoService {
             return null;
     }
 
-}
+    public User updateUser(User pUser) {
+        for (User user : users) {
+            if (user.getId() == pUser.getId()) {
+                user.setId(pUser.getId());
+                user.setName(pUser.getName());
+                return user;
+            }
+        }
+        return null;
+        }
+    }
+

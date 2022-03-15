@@ -66,5 +66,21 @@ public class UserController {
 
     }
 
+    @PutMapping("/users")
+    public ResponseEntity<User> updateUser(@RequestBody User pUser) {
+        User rUser = service.updateUser(pUser);
+        if (rUser == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", pUser.getId()));
+        }
+
+        URI location= ServletUriComponentsBuilder.fromCurrentRequest() // 요청 값
+                .path("/{id}") // URI location 값 요청값 ( 요청 URL )+= /{id}
+                .buildAndExpand(pUser.getId()) // 만든 가변 변수 {id} 에 넣을 값 지정
+                .toUri(); // toString
+
+
+        return ResponseEntity.created(location).build();
+    }
+
 
 }
