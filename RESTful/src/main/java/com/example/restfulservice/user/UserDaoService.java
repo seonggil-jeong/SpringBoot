@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service // bean 용도 설정
@@ -39,6 +40,22 @@ public class UserDaoService {
         }
         //  id에 매칭되는 값이 없을 경우
         return null;
+    }
+
+    public User deleteUser(int id) {
+        Iterator<User> iterator = users.iterator(); // 변환
+
+        while (iterator.hasNext()) { // 다음 값이 있으면 true
+            User user = iterator.next(); // 다음 값
+
+            if (user.getId() == id) {
+                iterator.remove();
+
+                return user;
+            }
+
+        }
+            return null;
     }
 
 }

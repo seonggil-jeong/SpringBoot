@@ -56,5 +56,15 @@ public class UserController {
 
     }
 
+    @DeleteMapping("/users/{id}") // GetMapping = 사용자 조회
+    public void deleteUser(@PathVariable int id) {
+        User user = service.deleteUser(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id)); // Exception 으로 넘기기
+        }
+
+    }
+
 
 }
