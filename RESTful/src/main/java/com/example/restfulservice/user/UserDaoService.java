@@ -65,6 +65,7 @@ public class UserDaoService {
             if (user.getId() == pUser.getId()) {
                 user.setId(pUser.getId());
                 user.setName(pUser.getName());
+                user.setJoin_date(new Date());
                 return user;
             }
         }

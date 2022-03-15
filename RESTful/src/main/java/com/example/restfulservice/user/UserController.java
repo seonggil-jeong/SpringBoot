@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -34,16 +35,9 @@ public class UserController {
         return user;
     }
 
-    // ------------   POST   -----------------------------------------------------
-
-    /*
-    *
-    * Headers 에 Content-Type : application/json 추가
-    *
-    * */
-
-    @PostMapping(value = "/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) { // HttpEntity 클래스를 상속받아 구현한 클래스가 RequestEntity, ResponseEntity 클래스
+    // Headers 에 Content-Type : application/json 추가
+    @PostMapping(value = "/users")      // Valid를 추가하여 Validation 조건 사용
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) { // HttpEntity 클래스를 상속받아 구현한 클래스가 RequestEntity, ResponseEntity 클래스
         User savedUser = service.save(user);
 
         URI location= ServletUriComponentsBuilder.fromCurrentRequest() // 요청 값
