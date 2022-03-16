@@ -37,7 +37,10 @@ public class AdminUserController { // 관리자를 위한 Controller
     }
 
 
-    @GetMapping("/v1/users/{id}") // int 로 선언하여 int 값으로 매핑
+//    @GetMapping("/v1/users/{id}") / URL 요청
+//    @GetMapping(value = "/users/{id}/", params = "version=1") / params 로 요청
+//    @GetMapping(value = "/users/{id}", headers = "X-API-VERSION=1") // Headers 로 요청
+    @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv1+json") // Media type 으로 요청
     public MappingJacksonValue retrieveOneUsersV1(@PathVariable int id) {
         User user = service.findOne(id);
 
@@ -55,7 +58,10 @@ public class AdminUserController { // 관리자를 위한 Controller
         return mapping;
     }
 
-    @GetMapping("/v2/users/{id}") // int 로 선언하여 int 값으로 매핑
+//    @GetMapping("/v1/users/{id}")
+//    @GetMapping(value = "users/{id}/", params = "version=2") params 값으로 요청
+//    @GetMapping(value = "/users/{id}", headers = "X-API-VERSION=2")
+    @GetMapping(value = "/users/{id}", produces = "application/vnd.company.appv2+json")
     public MappingJacksonValue retrieveOneUsersV2(@PathVariable int id) {
         User user = service.findOne(id);
 
@@ -72,7 +78,7 @@ public class AdminUserController { // 관리자를 위한 Controller
                 .filterOutAllExcept("id", "name", "joinDate", "grade"); // id, name, joinDate, ssn  값을 Out
 
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfoV2", filter); // UserInfo 에 filter 적용
-        MappingJacksonValue mapping = new MappingJacksonValue(userV2); // Return Type (user)
+        MappingJacksonValue mapping = new MappingJacksonValue(userV2); // Return Type (userV2)
         mapping.setFilters(filters); // filters 에 적용 된 filter 값을 mapping (return) 에 setting
 
         return mapping;
