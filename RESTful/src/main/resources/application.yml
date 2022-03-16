@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: restful-service
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
 
 logging:
   level:
