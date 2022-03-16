@@ -2,7 +2,10 @@ package com.example.restfulservice.helloworld;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Locale;
 
 @Slf4j
 @RestController // 자동으로 json 형태로 return
@@ -13,7 +16,7 @@ public class HelloWorldController {
         return "Hello World";
     }
 
-    // alt + enter로 Class 생성
+    // alt + enter 로 Class 생성
     @GetMapping(path = "/hello-world-bean") // bean 형태로 반환
     public HelloWorldBean helloWorldBean() {
 
@@ -25,5 +28,4 @@ public class HelloWorldController {
     public HelloWorldBean helloWorldBean(@PathVariable String name) {
         return new HelloWorldBean(String.format("Hello World, %s", name));
     }
-
 }
