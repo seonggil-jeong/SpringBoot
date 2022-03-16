@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -30,8 +31,16 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers() {
-        return service.findAll();
+    public MappingJacksonValue retrieveAllUsers() {
+
+        List<User> users = service.findAll();
+
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "name", "join_date");
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter);
+        MappingJacksonValue mapping = new MappingJacksonValue(users);
+        mapping.setFilters(filters);
+
+        return mapping;
     }
 
 
@@ -51,11 +60,11 @@ public class UserController {
 //            "id": 1,
 //                "name": "Jeong",
 //                "_links": {
-//            "all-users": {
-//                "href": "http://localhost:8080/users"
-//            }
-//        }
-//        }
+//                      "all-users": {
+//                      "href": "http://localhost:8080/users"
+//                            }
+//                      }
+//       }
 
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
                 .filterOutAllExcept("id", "name");
