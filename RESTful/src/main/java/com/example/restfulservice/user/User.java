@@ -10,9 +10,11 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -38,4 +40,15 @@ public class User {
     private String password;
 
     private String ssn;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
+    public User(Integer id, String name, Date join_date, String password, String ssn) {
+        this.id = id;
+        this.name = name;
+        this.join_date = join_date;
+        this.password = password;
+        this.ssn = ssn;
+    }
 }
