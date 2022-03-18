@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 // @JsonIgnoreProperties(value = {"password", "ssn"}) // 해당하는 값 무시
-//@JsonFilter("UserInfo")
+@JsonFilter("UserInfo")
 @Entity // table 자동 생성
 public class User {
 

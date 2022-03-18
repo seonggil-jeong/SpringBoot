@@ -5,18 +5,17 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -29,7 +28,6 @@ public class UserJPAController {
 
     @Autowired
     private UserRepository userRepository;
-
 
 
     @GetMapping("/users")
@@ -73,12 +71,36 @@ public class UserJPAController {
     public MappingJacksonValue retrieveOneUsers(@PathVariable int id) {
         Optional<User> user = userRepository.findById(id);
 
+        if (!user.isPresent()) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+        EntityModel<Optional<User>> model = EntityModel.of(user);
+        model.add(linkTo(methodOn(this.getClass()).retrieveAllUsers()).withRel("all-users"));
+
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "joinDate", "name", "password", "ssn");
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter);
-        MappingJacksonValue mapping = new MappingJacksonValue(user);
+        MappingJacksonValue mapping = new MappingJacksonValue(model);
         mapping.setFilters(filters);
 
 
         return mapping;
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        userRepository.deleteById(id);
+
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<EntityModel<User>> createUser(@Valid @RequestBody User user) {
+        User savedUser = userRepository.save(user);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
