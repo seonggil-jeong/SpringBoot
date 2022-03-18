@@ -77,7 +77,7 @@ public class UserJPAController {
         EntityModel<Optional<User>> model = EntityModel.of(user);
         model.add(linkTo(methodOn(this.getClass()).retrieveAllUsers()).withRel("all-users"));
 
-        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "joinDate", "name", "password", "ssn");
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "joinDate", "name", "password", "ssn", "posts");
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter);
         MappingJacksonValue mapping = new MappingJacksonValue(model);
         mapping.setFilters(filters);

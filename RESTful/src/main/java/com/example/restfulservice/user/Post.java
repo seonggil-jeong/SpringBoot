@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude={"user"})
 public class Post {
     @Id
     @GeneratedValue
@@ -19,7 +21,7 @@ public class Post {
     private String description;
 
     // User ... ___ > Post (1 : N), parent : Child
-    @ManyToOne(fetch = FetchType.LAZY) // <Many(POST) : One(USER)>      /       LAZY : 사용자 요청 시 항상 Post 를 함께 요청하지 않음
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) // <Many(POST) : One(USER)>      /       LAZY : 사용자 요청 시 항상 Post 를 함께 요청하지 않음
     @JsonIgnore // Return X
     private User user; // @ID 값과 매칭
 }
