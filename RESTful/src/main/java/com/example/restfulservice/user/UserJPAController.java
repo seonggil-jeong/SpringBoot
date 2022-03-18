@@ -42,7 +42,7 @@ public class UserJPAController {
             result.add(entityModel); // List<entityModel> 에 값 추가하기 {User + links}
         }
 
-        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "joinDate", "name", "password", "ssn");
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "joinDate", "name", "password", "ssn", "posts");
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter);
 
         MappingJacksonValue mapping = new MappingJacksonValue(result);
@@ -102,5 +102,18 @@ public class UserJPAController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+
+
+    @GetMapping("/users/{id}/posts")
+    public List<Post> retrieveAllPostsByUser(@PathVariable int id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (!user.isPresent()) {
+            throw new UserNotFoundException(String.format("ID[%s} not found]", id));
+        }
+
+        return user.get().getPosts();
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn; // static 으로 import 하여 사용 / WebMvcLinkBuilder.methodOn (X), methodOn (O)
@@ -76,7 +77,7 @@ public class UserController {
     }
 
     // Headers 에 Content-Type : application/json 추가
-    @PostMapping(value = "/users")      // Valid를 추가하여 Validation 조건 사용
+    @PostMapping(value = "/users")      // Valid 를 추가하여 Validation 조건 사용
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) { // HttpEntity 클래스를 상속받아 구현한 클래스가 RequestEntity, ResponseEntity 클래스
         User savedUser = service.save(user);
 
