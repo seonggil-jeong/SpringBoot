@@ -14,10 +14,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn; // static 으로 import 하여 사용 / WebMvcLinkBuilder.methodOn (X), methodOn (O)
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @Slf4j
@@ -29,7 +28,7 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/users") // 사용자 ALl 조회
     public MappingJacksonValue retrieveAllUsers() {
 
         List<User> users = service.findAll();
@@ -43,7 +42,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/users/{id}") // int 로 선언하여 int 값으로 매핑
+    @GetMapping("/users/{id}") // int 로 선언하여 int 값으로 매핑 / 사용자 One 조회
     public MappingJacksonValue retrieveOneUsers(@PathVariable int id) {
         User user = service.findOne(id);
 
@@ -77,7 +76,7 @@ public class UserController {
     }
 
     // Headers 에 Content-Type : application/json 추가
-    @PostMapping(value = "/users")      // Valid 를 추가하여 Validation 조건 사용
+    @PostMapping(value = "/users")      // Valid 를 추가하여 Validation 조건 사용 / add User
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) { // HttpEntity 클래스를 상속받아 구현한 클래스가 RequestEntity, ResponseEntity 클래스
         User savedUser = service.save(user);
 
@@ -91,7 +90,7 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/users/{id}") // GetMapping = 사용자 조회
+    @DeleteMapping("/users/{id}") // GetMapping = 사용자 조회 / Delete User
     public void deleteUser(@PathVariable int id) {
         User user = service.deleteUser(id);
 
@@ -101,7 +100,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/users")
+    @PutMapping("/users") // 사용자 정보 수정
     public ResponseEntity<User> updateUser(@RequestBody User pUser) {
         User rUser = service.updateUser(pUser);
         if (rUser == null) {

@@ -4,13 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/jpa")
@@ -23,7 +19,7 @@ public class PostJPAController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/posts")
+    @GetMapping("/posts") // All post 조회
     public List<Post> retrieveAllPosts() {
 
         List<Post> posts = postRepository.findAll();
@@ -31,13 +27,13 @@ public class PostJPAController {
         return posts;
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/posts/{id}") // Post id 로 조회
     public Optional<Post> retrieveOnePost(@PathVariable int id) {
         Optional<Post> post = postRepository.findById(id);
         return post;
     }
 
-    @PostMapping("/posts/{id}")
+    @PostMapping("/posts/{id}") // create Post / 누가 만드는지 FK 값
     public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post) {
         Optional<User> user = userRepository.findById(id);
 

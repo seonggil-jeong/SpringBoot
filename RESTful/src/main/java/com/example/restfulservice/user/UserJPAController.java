@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -106,7 +105,7 @@ public class UserJPAController {
 
 
 
-    @GetMapping("/users/{id}/posts")
+    @GetMapping("/users/{id}/posts") // where id & All post 조회
     public List<Post> retrieveAllPostsByUser(@PathVariable int id) {
         Optional<User> user = userRepository.findById(id);
 
