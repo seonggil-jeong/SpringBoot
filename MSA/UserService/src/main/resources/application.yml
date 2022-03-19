@@ -1,17 +1,22 @@
 server:
-  port: 9000
+  port: 0
   # Auto port
 
 spring:
   application:
     name: user-service
-    # DB
+## MariaDB
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://mydb.cvttgezbigrm.ap-northeast-2.rds.amazonaws.com
-
+    url: jdbc:mariadb://mydb.cvttgezbigrm.ap-northeast-2.rds.amazonaws.com/MSA
     username: admin
     password: 43214321
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 # mybatis.type-aliases-package= DTO Path
 #
