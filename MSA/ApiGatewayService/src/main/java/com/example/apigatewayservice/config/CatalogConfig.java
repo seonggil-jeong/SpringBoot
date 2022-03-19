@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class CatalogConfig {
 
     @Bean
-    public RouteLocator userGatewayRoutes(RouteLocatorBuilder builder) {
+    public RouteLocator catalogGatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/catalog-service/**")  // r.path 가 ~ 일 경우
                         .filters(f -> f.addRequestHeader("catalog-request", "catalog-request-header") // add Header
