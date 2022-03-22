@@ -19,8 +19,8 @@ public class MainController {
         this.env = env;
     }
 
-    @GetMapping("/health_check")
+    @GetMapping("/health")
     public String status() {
-        return "(1)" + env.getProperty("spring.application.name"); // spring.application.name in yml
+        return "(1)" + String.format("%s (%s)", env.getProperty("spring.application.name"), env.getProperty("local.server.port")); // spring.application.name in yml
     }
 }

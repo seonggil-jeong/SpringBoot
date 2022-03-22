@@ -12,3 +12,4 @@ eureka:
 spring:
   application:
     name: apigateway-service
+

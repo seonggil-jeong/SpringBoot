@@ -13,7 +13,7 @@ public class UserConfig {
         return builder.routes()
                 .route(r -> r.path("/user-service/**")  // r.path 가 ~ 일 경우
                         .filters(f -> f.addRequestHeader("user-request", "user-request-header") // add Header
-                                .addResponseHeader("user-response", "user-response-header"))
-                        .uri("lb://user-service/")).build();
+                                .addResponseHeader("user-response", "user-response-header")) // filter 적용 후
+                        .uri("lb://user-service/")).build(); // ~ 로 요청
     }
 }
