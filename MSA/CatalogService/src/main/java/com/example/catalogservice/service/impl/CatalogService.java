@@ -25,7 +25,7 @@ public class CatalogService implements ICatalogService {
         return catalogRepository.findAll();
     }
 
-    @Override // seq로 상품 조회하기
+    @Override // seq 로 상품 조회하기
     public CatalogEntity getOneCatalogBySeq(int productSeq) {
         return catalogRepository.findByProductSeq(productSeq);
     }

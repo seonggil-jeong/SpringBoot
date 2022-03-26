@@ -6,7 +6,6 @@ import com.example.orderservice.jpa.entity.OrderEntity;
 import com.example.orderservice.service.IOrderService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.criterion.Order;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class OrderService implements IOrderService {
     @Override
     public OrderDTO createOrder(OrderDTO pDTO) {
         pDTO.setOrderId(UUID.randomUUID().toString());
-        pDTO.setTotalPrice(pDTO.getUnitPrice() * pDTO.getQty()); // 수량 X 단가
+        pDTO.setTotalPrice((pDTO.getUnitPrice() * pDTO.getQty())); // 수량 X 단가
 
         ModelMapper mapper = new ModelMapper();
         OrderEntity pEntity = mapper.map(pDTO, OrderEntity.class);

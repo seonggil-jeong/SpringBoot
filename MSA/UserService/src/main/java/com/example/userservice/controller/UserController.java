@@ -23,7 +23,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @Slf4j
-@RequestMapping("/user-service")
 public class UserController {
 
     private UserService userService;

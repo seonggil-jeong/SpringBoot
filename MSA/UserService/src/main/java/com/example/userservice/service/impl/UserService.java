@@ -9,18 +9,41 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@Service("UserService")
 @Slf4j
 public class UserService implements IUserService {
+    private UserRepository userRepository;
+    BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("username : " + username);
+        UserEntity rEntity = userRepository.findByEmail(username);
+
+        if (rEntity == null) { // 사용자가 없을 경우 오류
+            throw new UsernameNotFoundException(username);
+        }
+        // 모두 통과 되었다면
+        return new User(rEntity.getEmail(), rEntity.getEncryptedPwd(),
+                true, true, true, true,
+                new ArrayList<>()); // 추가 권한 구현 시 + a
+    }
 
     @Override
     public UserDTO createUser(UserDTO pDTO) {
@@ -30,7 +53,7 @@ public class UserService implements IUserService {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT); // Matching 전략 ( 완전 == 만 허용 )
         UserEntity userEntity = mapper.map(pDTO, UserEntity.class); // pDTO -> userEntity
-        userEntity.setEncryptedPwd("exPwd");
+        userEntity.setEncryptedPwd(passwordEncoder.encode(pDTO.getPwd()));
 
         userRepository.save(userEntity);
 
