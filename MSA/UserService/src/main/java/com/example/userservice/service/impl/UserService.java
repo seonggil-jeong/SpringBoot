@@ -39,7 +39,7 @@ public class UserService implements IUserService {
         if (rEntity == null) { // 사용자가 없을 경우 오류
             throw new UsernameNotFoundException(username);
         }
-        // 모두 통과 되었다면
+        // 모두 통과 되었다면, email & pwd 를 저장하고, 권한 부여 (ture, ture, ture, true)
         return new User(rEntity.getEmail(), rEntity.getEncryptedPwd(),
                 true, true, true, true,
                 new ArrayList<>()); // 추가 권한 구현 시 + a
@@ -81,5 +81,17 @@ public class UserService implements IUserService {
     @Override
     public Iterable<UserEntity> getUserByAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public UserDTO getUserDetailsByEmail(String username) {
+        UserEntity rEntity = userRepository.findByEmail(username);
+
+        if (rEntity == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        UserDTO rDTO = new ModelMapper().map(rEntity, UserDTO.class);
+        return rDTO;
     }
 }
