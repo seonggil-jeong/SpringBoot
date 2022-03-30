@@ -17,7 +17,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -50,9 +49,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             RequestLogin creds = new ObjectMapper().readValue(request.getInputStream(), RequestLogin.class);
             return getAuthenticationManager().authenticate(
                     // Token 으로 변환 후 Manager 에 return
-                    new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
+                    new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()
+                    )
+            );
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
