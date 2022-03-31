@@ -21,4 +21,9 @@ public class MainController {
     public String status() {
         return "(1)" + String.format("%s (%s)", env.getProperty("spring.application.name"), env.getProperty("local.server.port")); // spring.application.name in yml
     }
+
+    @GetMapping("/hello")
+    public String hello(){
+        return "Hello";
+    }
 }

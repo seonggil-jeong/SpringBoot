@@ -1,12 +1,13 @@
 package com.example.apigatewayservice.filter;
 
 
+import com.google.common.net.HttpHeaders;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-@Component // filter
+@Component
 @Slf4j
 public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config> {
     Environment env;
@@ -23,38 +24,55 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         super(Config.class);
         this.env = env;
     }
-    public static class Config {
 
+    public static class Config {
+        // Put configuration properties here
     }
-    // login -> get token -> /users (with token) -> token open and check
+
     @Override
     public GatewayFilter apply(Config config) {
-        return ((exchange, chain) -> {
-            ServerHttpRequest request = exchange.getRequest();  // 사용자가 보낸 요청 (token)
-            if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) { // 인증과 관련된 값이 있는가?
-                // False
-                return onError(exchange, "no authorization Header", HttpStatus.UNAUTHORIZED);
-            }
-            // 받아온 토큰 정보가 들어 있음
-            String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-            String jwt = authorizationHeader.replace("Bearer", ""); // Bearer token 확인
+        return (exchange, chain) -> {
+            ServerHttpRequest request = exchange.getRequest();
 
-            if (!isJwtValid(jwt)) { // 토큰 값이 맞는가? 정상 값인가
+            if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                return onError(exchange, "No authorization header", HttpStatus.UNAUTHORIZED);
+            }
+
+            String authorizationHeader = request.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+            String jwt = authorizationHeader.replace("Bearer", "");
+
+            // Create a cookie object
+//            ServerHttpResponse response = exchange.getResponse();
+//            ResponseCookie c1 = ResponseCookie.from("my_token", "test1234").maxAge(60 * 60 * 24).build();
+//            response.addCookie(c1);
+
+            if (!isJwtValid(jwt)) {
                 return onError(exchange, "JWT token is not valid", HttpStatus.UNAUTHORIZED);
             }
 
             return chain.filter(exchange);
-        });
+        };
     }
+
+    private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) { // Error
+        ServerHttpResponse response = exchange.getResponse();
+        response.setStatusCode(httpStatus);
+
+        log.error(err);
+        return response.setComplete();
+    }
+
+    // JWT 확인
     private boolean isJwtValid(String jwt) {
         boolean returnValue = true;
 
         String subject = null;
-        try {
-            subject = Jwts.parser().setSigningKey(env.getProperty("token.secret")) // 복호화
-                    .parseClaimsJws(jwt).getBody().getSubject(); // sub 값 추출
 
-        } catch (Exception e) {
+        try {
+            subject = Jwts.parser().setSigningKey(env.getProperty("token.secret"))
+                    .parseClaimsJws(jwt).getBody()
+                    .getSubject();
+        } catch (Exception ex) {
             returnValue = false;
         }
 
@@ -62,17 +80,7 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             returnValue = false;
         }
 
-
         return returnValue;
-
     }
 
-    // Mono, Flux -> Spring WebFlux (단일 값 = Mono)
-    private Mono<Void> onError(ServerWebExchange exchange, String error, HttpStatus httpStatus) {
-        ServerHttpResponse response = exchange.getResponse();
-        response.setStatusCode(httpStatus);
-        log.error(error);
-
-        return response.setComplete();
-    }
 }
