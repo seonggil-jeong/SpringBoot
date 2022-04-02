@@ -17,13 +17,14 @@ public class MainController {
         this.env = env;
     }
 
-    @GetMapping("/health")
+    @GetMapping("/health-check")
     public String status() {
-        return "(1)" + String.format("%s (%s)", env.getProperty("spring.application.name"), env.getProperty("local.server.port")); // spring.application.name in yml
-    }
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hello";
+        return env.getProperty("spring.application.name")
+                + ", port(local.server.port) : " + env.getProperty("local.server.port")
+                + ", port(server.port) : " + env.getProperty("server.port")
+                + ", token secret : " + env.getProperty("token.secret")
+                + ", token expiration time : " + env.getProperty("token.expiration_time");
+
     }
 }
