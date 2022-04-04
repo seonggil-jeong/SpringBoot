@@ -6,3 +6,5 @@ spring:
       url: http://127.0.0.1:8888
       # File Name (application.yml name)
       name: ecommerce
+      profiles:
+        active: default

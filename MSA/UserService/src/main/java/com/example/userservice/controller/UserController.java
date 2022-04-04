@@ -3,12 +3,15 @@ package com.example.userservice.controller;
 import com.example.userservice.jpa.entity.UserEntity;
 import com.example.userservice.service.impl.UserService;
 import com.example.userservice.dto.UserDTO;
+import com.example.userservice.util.TokenUtil;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.core.env.Environment;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @Slf4j
 public class UserController {
 
     private UserService userService;
+    private Environment env;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, Environment env) {
         this.userService = userService;
+        this.env = env;
     }
 
 
@@ -49,14 +53,13 @@ public class UserController {
     // 사용자 조회
     @GetMapping("users/{user_id}")
     public ResponseEntity<EntityModel<ResponseUser>> getUsersByUserId(@PathVariable String user_id) throws Exception {
-
         UserDTO rDTO = userService.getUserByUserID(user_id);
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ResponseUser responseUser = mapper.map(rDTO, ResponseUser.class);
-         // Hateoas
+        // Hateoas
         EntityModel<ResponseUser> model = EntityModel.of(responseUser);
-        model.add(linkTo(methodOn(this.getClass()).getUsers()).withRel("getAllUser"));
+//        model.add(linkTo(methodOn(this.getClass()).getUsers()).withRel("getAllUser"));
 
         return ResponseEntity.status(HttpStatus.OK).body(model);
     }
@@ -64,8 +67,13 @@ public class UserController {
 
     // 전체 사용자 조회
     @GetMapping("/users")
-    public ResponseEntity<List<ResponseUser>> getUsers() throws Exception {
+    public ResponseEntity<List<ResponseUser>> getUsers(@RequestHeader HttpHeaders headers) throws Exception {
         log.info(this.getClass().getName() + "getUsers Start!");
+
+        // Token 에서 UserId 가져오기
+         String userId = TokenUtil.getUserIdByToken(headers.get("Authorization").get(0), env.getProperty("token.secret"));
+        log.info("userId : " + userId);
+
 
         Iterable<UserEntity> userList = userService.getUserByAll();
 
@@ -75,6 +83,8 @@ public class UserController {
         userList.forEach(v -> {    // userList 값을 RequestUser 로 변경 and Add
             result.add(mapper.map(v, ResponseUser.class));
         });
+
+        log.info(this.getClass().getName() + ".getUsers End!");
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
 

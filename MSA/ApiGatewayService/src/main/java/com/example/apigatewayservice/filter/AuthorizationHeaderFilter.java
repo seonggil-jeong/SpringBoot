@@ -4,10 +4,10 @@ package com.example.apigatewayservice.filter;
 import com.google.common.net.HttpHeaders;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -72,10 +72,10 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
             subject = Jwts.parser().setSigningKey(env.getProperty("token.secret"))
                     .parseClaimsJws(jwt).getBody()
                     .getSubject();
+
         } catch (Exception ex) {
             returnValue = false;
         }
-
         if (subject == null || subject.isEmpty()) {
             returnValue = false;
         }
