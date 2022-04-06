@@ -1,5 +1,6 @@
 package com.example.userservice.service.impl;
 
+import com.example.userservice.orderservice.OrderServiceClient;
 import com.example.userservice.service.IUserService;
 import com.example.userservice.dto.UserDTO;
 import com.example.userservice.jpa.entity.UserEntity;
@@ -35,15 +36,17 @@ public class UserService implements IUserService {
     private Environment env;
     private RestTemplate restTemplate;
     private ModelMapper modelMapper;
+    private OrderServiceClient orderServiceClient;
 
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env,
-                       RestTemplate restTemplate, ModelMapper modelMapper) {
+                       RestTemplate restTemplate, ModelMapper modelMapper, OrderServiceClient orderServiceClient) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
         this.modelMapper = modelMapper;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @Override
@@ -87,20 +90,23 @@ public class UserService implements IUserService {
         if (rDTO == null) {
             throw new UsernameNotFoundException("User not found"); // 사용자 없을 경우 Exception
         }
-        /*
-        Headers 에 token 정보 넣기
-         */
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("authorization", token);
-        HttpEntity headerEntity = new HttpEntity(headers);
+            // RestTemplate Code
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("authorization", token);
+//        HttpEntity headerEntity = new HttpEntity(headers);
+//
+//        String orderUrl = String.format(env.getProperty("order-service.url") + "/%s/orders", userId); // URL 설정
+//        ResponseEntity<List<ResponseOrder>> restOrderList =
+//                restTemplate.exchange(orderUrl, HttpMethod.GET, headerEntity, // url, Method, request, response
+//                        new ParameterizedTypeReference<List<ResponseOrder>>() {
+//                        });
+//        log.info("restOrderList : " + restOrderList);
+//        List<ResponseOrder> orderList = restOrderList.getBody();
 
-        String orderUrl = String.format(env.getProperty("order-service.url") + "/%s/orders", userId); // URL 설정
-        ResponseEntity<List<ResponseOrder>> restOrderList =
-                restTemplate.exchange(orderUrl, HttpMethod.GET, headerEntity, // url, Method, request, response
-                        new ParameterizedTypeReference<List<ResponseOrder>>() {
-                        });
-        log.info("restOrderList : " + restOrderList);
-        List<ResponseOrder> orderList = restOrderList.getBody();
+        // FeignClient Code
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+
+
         rDTO.setOrders(orderList);
 
         return rDTO;
