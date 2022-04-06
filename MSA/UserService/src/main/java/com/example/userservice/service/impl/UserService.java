@@ -6,14 +6,20 @@ import com.example.userservice.jpa.entity.UserEntity;
 import com.example.userservice.jpa.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.criterion.Order;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +29,16 @@ import java.util.UUID;
 @Slf4j
 public class UserService implements IUserService {
     private UserRepository userRepository;
-    BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
+    private Environment env;
+    private RestTemplate restTemplate;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.env = env;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -69,12 +79,19 @@ public class UserService implements IUserService {
         ModelMapper mapper = new ModelMapper();
         UserDTO rDTO = mapper.map(userEntity, UserDTO.class);
 
-        List<ResponseOrder> orders = new ArrayList<>();
-        rDTO.setOrders(orders); // 사용자 주문 정보 Setting
-
-        if (userEntity == null) {
-            log.info("User Not found");
+        if (rDTO == null) {
+            throw new UsernameNotFoundException("User not found"); // 사용자 없을 경우 Exception
         }
+
+        String orderUrl = String.format(env.getProperty("order-service.url") + "/%s/orders", userId); // URL 설정
+        ResponseEntity<List<ResponseOrder>> restOrderList =
+                restTemplate.exchange(orderUrl, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<List<ResponseOrder>>() {
+                        });
+        log.info("restOrderList : " + restOrderList);
+        List<ResponseOrder> orderList = restOrderList.getBody();
+        rDTO.setOrders(orderList);
+
         return rDTO;
     }
 

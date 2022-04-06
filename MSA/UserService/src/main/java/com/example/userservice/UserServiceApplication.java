@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -18,5 +19,10 @@ public class UserServiceApplication {
     @Bean // password 를 enc 해주는 Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();}
+
+    @Bean // Make RestTemplate
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
 
 }

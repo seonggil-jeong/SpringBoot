@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +52,7 @@ public class UserController {
     }
 
     // 사용자 조회
-    @GetMapping("users/{user_id}")
+    @GetMapping(value = "users/{user_id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<EntityModel<ResponseUser>> getUsersByUserId(@PathVariable String user_id) throws Exception {
         UserDTO rDTO = userService.getUserByUserID(user_id);
         ModelMapper mapper = new ModelMapper();
@@ -71,7 +72,7 @@ public class UserController {
         log.info(this.getClass().getName() + "getUsers Start!");
 
         // Token 에서 UserId 가져오기
-         String userId = TokenUtil.getUserIdByToken(headers.get("Authorization").get(0), env.getProperty("token.secret"));
+        String userId = TokenUtil.getUserIdByToken(headers.get("Authorization").get(0), env.getProperty("token.secret"));
         log.info("userId : " + userId);
 
 
