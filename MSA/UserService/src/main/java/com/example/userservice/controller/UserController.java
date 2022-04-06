@@ -53,11 +53,16 @@ public class UserController {
 
     // 사용자 조회
     @GetMapping(value = "users/{user_id}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<EntityModel<ResponseUser>> getUsersByUserId(@PathVariable String user_id) throws Exception {
-        UserDTO rDTO = userService.getUserByUserID(user_id);
+    public ResponseEntity<EntityModel<ResponseUser>> getUsersByUserId(@PathVariable String user_id,
+                                                                      @RequestHeader HttpHeaders headers) throws Exception {
+        // Token 인증 처리 구현
+        String token = headers.get("Authorization").get(0);
+        UserDTO rDTO = userService.getUserByUserID(user_id, token);
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         ResponseUser responseUser = mapper.map(rDTO, ResponseUser.class);
+
+
         // Hateoas
         EntityModel<ResponseUser> model = EntityModel.of(responseUser);
 //        model.add(linkTo(methodOn(this.getClass()).getUsers()).withRel("getAllUser"));
@@ -70,9 +75,9 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<ResponseUser>> getUsers(@RequestHeader HttpHeaders headers) throws Exception {
         log.info(this.getClass().getName() + "getUsers Start!");
-
+        log.info("header : " + headers);
         // Token 에서 UserId 가져오기
-        String userId = TokenUtil.getUserIdByToken(headers.get("Authorization").get(0), env.getProperty("token.secret"));
+        String userId = TokenUtil.getUserIdFromToken(headers.get("Authorization").get(0), env.getProperty("token.secret"));
         log.info("userId : " + userId);
 
 

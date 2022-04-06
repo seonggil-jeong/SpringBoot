@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TokenUtil {
 
     // Token 안에서 UserId 가져오기
-    public static String getUserIdByToken(String requestJwt, String secret) { // JWT, token.secret Code
+    public static String getUserIdFromToken(String requestJwt, String secret) { // JWT, token.secret Code
         log.info("getUserId Start!");
 
         String jwt = requestJwt.replace("Bearer", ""); // Bearer 삭제
@@ -20,5 +20,16 @@ public class TokenUtil {
 
 
         return userId;
+    }
+
+    // 토큰 가져오기
+    public static String getToken(String requestJwt) {
+        log.info("getUserId Start!");
+
+        String jwt = requestJwt.replace("Bearer", ""); // Bearer 삭제
+
+        log.info("JWT : " + jwt); // TokenValue
+
+        return jwt;
     }
 }

@@ -12,6 +12,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
@@ -32,13 +34,16 @@ public class UserService implements IUserService {
     private BCryptPasswordEncoder passwordEncoder;
     private Environment env;
     private RestTemplate restTemplate;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env, RestTemplate restTemplate) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, Environment env,
+                       RestTemplate restTemplate, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.env = env;
         this.restTemplate = restTemplate;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -72,20 +77,26 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO getUserByUserID(String userId) {
+    public UserDTO getUserByUserID(String userId, String token) {
 
         UserEntity userEntity = userRepository.findByUserId(userId); // UserId 값으로 찾기 / make
 
-        ModelMapper mapper = new ModelMapper();
-        UserDTO rDTO = mapper.map(userEntity, UserDTO.class);
+
+        UserDTO rDTO = modelMapper.map(userEntity, UserDTO.class);
 
         if (rDTO == null) {
             throw new UsernameNotFoundException("User not found"); // 사용자 없을 경우 Exception
         }
+        /*
+        Headers 에 token 정보 넣기
+         */
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("authorization", token);
+        HttpEntity headerEntity = new HttpEntity(headers);
 
         String orderUrl = String.format(env.getProperty("order-service.url") + "/%s/orders", userId); // URL 설정
         ResponseEntity<List<ResponseOrder>> restOrderList =
-                restTemplate.exchange(orderUrl, HttpMethod.GET, null,
+                restTemplate.exchange(orderUrl, HttpMethod.GET, headerEntity, // url, Method, request, response
                         new ParameterizedTypeReference<List<ResponseOrder>>() {
                         });
         log.info("restOrderList : " + restOrderList);
