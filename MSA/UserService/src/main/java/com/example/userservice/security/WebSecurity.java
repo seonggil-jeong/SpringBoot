@@ -33,7 +33,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/actuator/**").permitAll(); // Actuator (Config)
         http.authorizeRequests().antMatchers("/health-check/**").permitAll();
         http.authorizeRequests().antMatchers("/**")
-                .hasIpAddress("192.168.45.47") // <- 특정 IP 허용 ( in Server GateWay Ip mapping )
+                .hasIpAddress("127.0.0.1") // <- 특정 IP 허용 ( in Server GateWay Ip mapping )
                 .and()
                 .addFilter(getAuthenticationFilter());
 

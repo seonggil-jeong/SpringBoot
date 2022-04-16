@@ -1,7 +1,6 @@
 package com.example.userservice.vo;
 
 import lombok.Data;
-
 import java.util.Date;
 
 @Data
