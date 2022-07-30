@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/TestLifeCycle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/user/UserJPAControllerTest.java" afterDir="false" />
+    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="TestCode 사용자 조회">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESTful/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/TestLifeCycle.java" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/test/TestLifeCycle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/user/UserJPAControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/user/UserJPAControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +27,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="26arHu8H9v33WjMBTxJSPlZRn0w" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,12 +40,21 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "spring.configuration.checksum": "ce89a2e75666d55bea55a74c92be1e4e"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -48,18 +65,65 @@
       <recent name="com.example.restfulservice.user" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserJPAControllerTest.retrieveOneUsers">
+  <component name="RunManager" selected="JUnit.UserJPAControllerTest">
     <configuration name="TestLifeCycle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restful-service" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.restfulservice.*" />
+          <option name="PATTERN" value="com.example.restfulservice.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.restfulservice" />
-      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.TestLifeCycle" />
+      <option name="PACKAGE_NAME" value="com.example.restfulservice.test" />
+      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.test.TestLifeCycle" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserJPAControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="restful-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.restfulservice.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.restfulservice.user" />
+      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.user.UserJPAControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserJPAControllerTest.checkUserNameSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="restful-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.restfulservice.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.restfulservice.user" />
+      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.user.UserJPAControllerTest" />
+      <option name="METHOD_NAME" value="checkUserNameSize" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserJPAControllerTest.createUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="restful-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.restfulservice.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.restfulservice.user" />
+      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.user.UserJPAControllerTest" />
+      <option name="METHOD_NAME" value="createUser" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -89,12 +153,18 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.UserJPAControllerTest" />
+      <item itemvalue="JUnit.UserJPAControllerTest.checkUserNameSize" />
+      <item itemvalue="JUnit.UserJPAControllerTest.createUser" />
       <item itemvalue="JUnit.TestLifeCycle" />
       <item itemvalue="JUnit.UserJPAControllerTest.retrieveOneUsers" />
       <item itemvalue="Spring Boot.RestfulServiceApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserJPAControllerTest" />
+        <item itemvalue="JUnit.UserJPAControllerTest.checkUserNameSize" />
+        <item itemvalue="JUnit.UserJPAControllerTest.createUser" />
         <item itemvalue="JUnit.UserJPAControllerTest.retrieveOneUsers" />
         <item itemvalue="JUnit.TestLifeCycle" />
       </list>
@@ -109,7 +179,16 @@
       <option name="presentableId" value="Default" />
       <updated>1647672453837</updated>
       <workItem from="1647672455395" duration="3000" />
+      <workItem from="1659186780581" duration="1496000" />
     </task>
+    <task id="LOCAL-00001" summary="TestCode 사용자 조회">
+      <created>1659179886851</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1659179886851</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,5 +204,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="TestCode 사용자 조회" />
+    <option name="LAST_COMMIT_MESSAGE" value="TestCode 사용자 조회" />
   </component>
 </project>

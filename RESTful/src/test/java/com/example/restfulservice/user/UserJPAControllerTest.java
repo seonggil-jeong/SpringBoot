@@ -1,10 +1,13 @@
 package com.example.restfulservice.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.verify;
@@ -16,6 +19,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,6 +30,9 @@ class UserJPAControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @MockBean // DI 되어 있는 UserRepository 를 Mock 로 구현
     UserRepository userRepository;
@@ -47,9 +54,48 @@ class UserJPAControllerTest {
                 .andDo(print());
 
 
-        verify(userRepository).findById(12345); // 해당 객체의 메소드가 실행되었는지 확인
+        verify(userRepository).findById(12345); // verify : 해당 객체의 메소드가 실행되었는지 체크해줌
 
     }
 
+    @Test
+    @DisplayName("사용자 생성 test")
+    void createUser() throws Exception {
+        User user = new User();
+        user.setName("seonggil");
+        user.setPassword("1234");
 
+        Gson gson = new Gson();
+        String content = gson.toJson(user); // json 형식으로 변환
+
+
+        given(userRepository.save(user)).willReturn(user);
+
+        mvc.perform(post("/jpa/users")
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andDo(print());
+
+        verify(userRepository).save(user);
+    }
+
+    @Test
+    @DisplayName("Name Size Check") // 이름 값이 짧기 때문에 Bad Request
+    void checkUserNameSize() throws Exception {
+        User user = new User();
+        user.setName("ss");
+        user.setPassword("1234");
+        Gson gson = new Gson(); // json 형태로 변환
+        String content = gson.toJson(user);
+
+        given(userRepository.save(user)).willReturn(user);
+
+        mvc.perform(post("/jpa/users")
+                .content(content)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+
+    }
 }

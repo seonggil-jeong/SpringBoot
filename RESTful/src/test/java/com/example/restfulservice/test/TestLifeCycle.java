@@ -1,4 +1,4 @@
-package com.example.restfulservice;
+package com.example.restfulservice.test;
 
 import org.junit.jupiter.api.*;
 
