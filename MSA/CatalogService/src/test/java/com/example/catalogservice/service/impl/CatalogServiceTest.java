@@ -79,4 +79,33 @@ class CatalogServiceTest {
 
     }
 
+    @Test
+    @Order(3)
+    @DisplayName("Catalog 정보 저장 Test")
+    void test3() throws Exception {
+
+        CatalogEntity catalogEntity = new CatalogEntity();
+
+
+        Mockito.when(catalogRepository.save(catalogEntity))
+                .thenReturn(catalogEntity);
+
+        Throwable notFountId = Assertions.assertThrows(Exception.class, () -> {
+            CatalogEntity catalogEntity2 = new CatalogEntity(); // 정보가 없다면 Exception 발생
+            catalogService.saveCatalogInfo(catalogEntity2);
+        });
+        Assertions.assertEquals("400", notFountId.getMessage().substring(0, 3)); // 400
+
+        catalogEntity.setProductId("10002");
+        catalogEntity.setUnitPrice(1000);
+        catalogEntity.setProductName("product3");
+        catalogEntity.setStock(100);
+
+        CatalogEntity rCatalogEntity = catalogService.saveCatalogInfo(catalogEntity);
+
+        Assertions.assertEquals("10002", rCatalogEntity.getProductId());
+
+
+    }
+
 }

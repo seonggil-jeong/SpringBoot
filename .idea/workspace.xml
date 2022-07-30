@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="TestCode Controller">
-      <change afterPath="$PROJECT_DIR$/MSA/CatalogService/src/test/java/com/example/catalogservice/service/impl/CatalogServiceTest.java" afterDir="false" />
+    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="TestCode Service">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MSA/CatalogService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/MSA/CatalogService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MSA/CatalogService/src/main/java/com/example/catalogservice/CatalogServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA/CatalogService/src/main/java/com/example/catalogservice/CatalogServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA/CatalogService/src/main/java/com/example/catalogservice/service/ICatalogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA/CatalogService/src/main/java/com/example/catalogservice/service/ICatalogService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MSA/CatalogService/src/main/java/com/example/catalogservice/service/impl/CatalogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA/CatalogService/src/main/java/com/example/catalogservice/service/impl/CatalogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MSA/CatalogService/src/test/java/com/example/catalogservice/service/impl/CatalogServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/MSA/CatalogService/src/test/java/com/example/catalogservice/service/impl/CatalogServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +73,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CatalogServiceTest.test2">
+  <component name="RunManager" selected="JUnit.CatalogServiceTest.test3">
     <configuration name="CatalogControllerIntegrationTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="catalogservice" />
       <extension name="coverage">
@@ -123,6 +122,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CatalogServiceTest.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="catalogservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.catalogservice.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.catalogservice.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="com.example.catalogservice.service.impl.CatalogServiceTest" />
+      <option name="METHOD_NAME" value="test3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UserJPAControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restful-service" />
       <extension name="coverage">
@@ -134,22 +149,6 @@
       <option name="PACKAGE_NAME" value="com.example.restfulservice.user" />
       <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.user.UserJPAControllerTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserJPAControllerTest.checkUserNameSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="restful-service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.restfulservice.user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.restfulservice.user" />
-      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.user.UserJPAControllerTest" />
-      <option name="METHOD_NAME" value="checkUserNameSize" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -173,18 +172,18 @@
       <item itemvalue="JUnit.CatalogControllerIntegrationTest.test1" />
       <item itemvalue="JUnit.CatalogServiceTest.getOneCatalogBySeqTest" />
       <item itemvalue="JUnit.CatalogServiceTest.test2" />
+      <item itemvalue="JUnit.CatalogServiceTest.test3" />
       <item itemvalue="JUnit.UserJPAControllerTest" />
-      <item itemvalue="JUnit.UserJPAControllerTest.checkUserNameSize" />
       <item itemvalue="Spring Boot.CatalogServiceApplication" />
       <item itemvalue="Spring Boot.RestfulServiceApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CatalogServiceTest.test3" />
         <item itemvalue="JUnit.CatalogServiceTest.test2" />
         <item itemvalue="JUnit.CatalogServiceTest.getOneCatalogBySeqTest" />
         <item itemvalue="JUnit.CatalogControllerIntegrationTest.test1" />
         <item itemvalue="JUnit.UserJPAControllerTest" />
-        <item itemvalue="JUnit.UserJPAControllerTest.checkUserNameSize" />
       </list>
     </recent_temporary>
   </component>
@@ -197,7 +196,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647672453837</updated>
       <workItem from="1647672455395" duration="3000" />
-      <workItem from="1659186780581" duration="5418000" />
+      <workItem from="1659186780581" duration="6881000" />
     </task>
     <task id="LOCAL-00001" summary="TestCode 사용자 조회">
       <created>1659179886851</created>
@@ -213,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659188373254</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="TestCode Service">
+      <created>1659192334282</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1659192334282</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +239,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="TestCode 사용자 조회" />
     <MESSAGE value="TestCode Controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="TestCode Controller" />
+    <MESSAGE value="TestCode Service" />
+    <option name="LAST_COMMIT_MESSAGE" value="TestCode Service" />
   </component>
 </project>
