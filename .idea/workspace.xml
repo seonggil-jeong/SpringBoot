@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="TDD Test">
-      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/Membership.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/tdd/MembershipRepositoryTest.java" afterDir="false" />
+    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="[TDD] Repository : MembershipRepository">
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipErrorResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/tdd/MembershipServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESTful/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,13 +22,14 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="SOFT" />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
@@ -64,6 +65,9 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.restfulservice.tdd" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.example.catalogservice.service.impl" />
       <recent name="com.example.catalogservice.controller" />
@@ -77,39 +81,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MembershipRepositoryTest.test3">
-    <configuration name="CatalogServiceTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="catalogservice" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.catalogservice.service.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.catalogservice.service.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.example.catalogservice.service.impl.CatalogServiceTest" />
-      <option name="METHOD_NAME" value="test2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CatalogServiceTest.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="catalogservice" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.catalogservice.service.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.catalogservice.service.impl" />
-      <option name="MAIN_CLASS_NAME" value="com.example.catalogservice.service.impl.CatalogServiceTest" />
-      <option name="METHOD_NAME" value="test3" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.MembershipServiceTest.test2">
     <configuration name="MembershipRepositoryTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restful-service" />
       <extension name="coverage">
@@ -158,6 +130,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MembershipServiceTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="restful-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.restfulservice.tdd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.restfulservice.tdd" />
+      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.tdd.MembershipServiceTest" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MembershipServiceTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="restful-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.restfulservice.tdd.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.restfulservice.tdd" />
+      <option name="MAIN_CLASS_NAME" value="com.example.restfulservice.tdd.MembershipServiceTest" />
+      <option name="METHOD_NAME" value="test2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CatalogServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="catalogservice" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.catalogservice.CatalogServiceApplication" />
@@ -177,18 +181,18 @@
       <item itemvalue="JUnit.MembershipRepositoryTest.test1" />
       <item itemvalue="JUnit.MembershipRepositoryTest.test2" />
       <item itemvalue="JUnit.MembershipRepositoryTest.test3" />
-      <item itemvalue="JUnit.CatalogServiceTest.test2" />
-      <item itemvalue="JUnit.CatalogServiceTest.test3" />
+      <item itemvalue="JUnit.MembershipServiceTest.test1" />
+      <item itemvalue="JUnit.MembershipServiceTest.test2" />
       <item itemvalue="Spring Boot.CatalogServiceApplication" />
       <item itemvalue="Spring Boot.RestfulServiceApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MembershipServiceTest.test2" />
+        <item itemvalue="JUnit.MembershipServiceTest.test1" />
         <item itemvalue="JUnit.MembershipRepositoryTest.test3" />
         <item itemvalue="JUnit.MembershipRepositoryTest.test2" />
         <item itemvalue="JUnit.MembershipRepositoryTest.test1" />
-        <item itemvalue="JUnit.CatalogServiceTest.test3" />
-        <item itemvalue="JUnit.CatalogServiceTest.test2" />
       </list>
     </recent_temporary>
   </component>
@@ -202,7 +206,7 @@
       <updated>1647672453837</updated>
       <workItem from="1647672455395" duration="3000" />
       <workItem from="1659186780581" duration="6969000" />
-      <workItem from="1659268084266" duration="1826000" />
+      <workItem from="1659268084266" duration="4266000" />
     </task>
     <task id="LOCAL-00001" summary="TestCode 사용자 조회">
       <created>1659179886851</created>
@@ -232,7 +236,28 @@
       <option name="project" value="LOCAL" />
       <updated>1659193726177</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[TDD] Repository : MembershipRepository Test Code">
+      <created>1659269984632</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1659269984632</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[TDD] Repository : MembershipRepository Test Code">
+      <created>1659270006953</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1659270006953</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[TDD] Repository : MembershipRepository">
+      <created>1659270016532</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1659270016532</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +279,8 @@
     <MESSAGE value="TestCode Controller" />
     <MESSAGE value="TestCode Service" />
     <MESSAGE value="TDD Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="TDD Test" />
+    <MESSAGE value="[TDD] Repository : MembershipRepository Test Code" />
+    <MESSAGE value="[TDD] Repository : MembershipRepository" />
+    <option name="LAST_COMMIT_MESSAGE" value="[TDD] Repository : MembershipRepository" />
   </component>
 </project>
