@@ -3,6 +3,10 @@ package com.example.restfulservice.tdd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class MembershipService {
@@ -29,5 +33,29 @@ public class MembershipService {
                 .membershipType(saveMembership.getMembershipType())
                 .build();
 
+    }
+
+    public List<MembershipResponse> getMembershipListByUserId(String userId) {
+        List<Membership> membershipList = membershipRepository.findAllByUserId(userId);
+
+        return membershipList.stream()
+                .map(membership -> MembershipResponse.builder()
+                        .membershipId(membership.getMembershipId())
+                        .membershipType(membership.getMembershipType())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public Membership getMembershipDetail(long membershipId, String userId) {
+
+        final Optional<Membership> membershipOptional = membershipRepository.findById(membershipId);
+
+        final Membership membership = membershipOptional.orElseThrow(() -> new MembershipException(MembershipErrorResult.MEMBERSHIP_NOT_FOUND));
+
+        if (!membership.getUserId().equals(userId)) {
+            throw new MembershipException(MembershipErrorResult.NOT_MEMBERSHIP_OWNER);
+        }
+
+        return membership;
     }
 }
