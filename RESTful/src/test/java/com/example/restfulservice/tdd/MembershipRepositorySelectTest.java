@@ -29,7 +29,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest // Repository Test 시 적용
 public class MembershipRepositorySelectTest {
 
-    @Autowired
+    @Autowired // DB Test 해야하기 때문에 주입
     MembershipRepository membershipRepository;
 
 
