@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="[TDD] Repository : MembershipRepositorySelect">
-      <change afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/tdd/MembershipControllerSelectTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/tdd/MembershipServiceSelectTest.java" afterDir="false" />
+    <list default="true" id="a2107a2e-cdbe-4a1c-b714-0c6647a0e869" name="Changes" comment="[TDD] Controller : MembershipRepositorySelect">
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/CloudController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/CloudFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/CloudType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/dto/CloudDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/dto/DCloudDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/dto/GCloudDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/service/CloudService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/service/DCloudServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/factory/service/GCloudServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipController.java" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipErrorResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipErrorResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipService.java" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/src/main/java/com/example/restfulservice/tdd/MembershipService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/tdd/MembershipRepositorySelectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/src/test/java/com/example/restfulservice/tdd/MembershipRepositorySelectTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESTful/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/RESTful/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,25 +47,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;ce89a2e75666d55bea55a74c92be1e4e&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelOrder2": "2",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RequestMappingsPanelWidth2": "75",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "spring.configuration.checksum": "ce89a2e75666d55bea55a74c92be1e4e"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -74,6 +80,9 @@
       <recent name="com.example.catalogservice.controller" />
       <recent name="com.example.restfulservice.user" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.restfulservice.factory" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -82,7 +91,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MembershipControllerSelectTest.test3">
+  <component name="RunManager" selected="Spring Boot.RestfulServiceApplication">
     <configuration name="MembershipControllerSelectTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="restful-service" />
       <extension name="coverage">
@@ -207,7 +216,12 @@
       <updated>1647672453837</updated>
       <workItem from="1647672455395" duration="3000" />
       <workItem from="1659186780581" duration="6969000" />
-      <workItem from="1659268084266" duration="13289000" />
+      <workItem from="1659268084266" duration="13765000" />
+      <workItem from="1659284576576" duration="7000" />
+      <workItem from="1659352095146" duration="270000" />
+      <workItem from="1659352680725" duration="7862000" />
+      <workItem from="1659514253184" duration="7593000" />
+      <workItem from="1659535819907" duration="6032000" />
     </task>
     <task id="LOCAL-00001" summary="TestCode 사용자 조회">
       <created>1659179886851</created>
@@ -307,7 +321,35 @@
       <option name="project" value="LOCAL" />
       <updated>1659276887481</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="[TDD] Repository : MembershipServiceSelect Test Code">
+      <created>1659281736691</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1659281736691</updated>
+    </task>
+    <task id="LOCAL-00016" summary="[TDD] Service : MembershipServiceSelect">
+      <created>1659281761831</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1659281761831</updated>
+    </task>
+    <task id="LOCAL-00017" summary="[TDD] Controller : MembershipRepositorySelect Test Code">
+      <created>1659281792853</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1659281792853</updated>
+    </task>
+    <task id="LOCAL-00018" summary="[TDD] Controller : MembershipRepositorySelect">
+      <created>1659281800931</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1659281800931</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,6 +379,10 @@
     <MESSAGE value="[TDD] Controller : MembershipController CREATE" />
     <MESSAGE value="[TDD] Repository : MembershipRepositorySelect Test Code" />
     <MESSAGE value="[TDD] Repository : MembershipRepositorySelect" />
-    <option name="LAST_COMMIT_MESSAGE" value="[TDD] Repository : MembershipRepositorySelect" />
+    <MESSAGE value="[TDD] Service : MembershipServiceSelect Test Code" />
+    <MESSAGE value="[TDD] Service : MembershipServiceSelect" />
+    <MESSAGE value="[TDD] Controller : MembershipRepositorySelect Test Code" />
+    <MESSAGE value="[TDD] Controller : MembershipRepositorySelect" />
+    <option name="LAST_COMMIT_MESSAGE" value="[TDD] Controller : MembershipRepositorySelect" />
   </component>
 </project>
